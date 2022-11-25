@@ -1,3 +1,7 @@
+/*
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Spiral Matrix.
+Memory Usage: 7 MB, less than 29.90% of C++ online submissions for Spiral Matrix.
+*/
 class Solution {
 public:
     vector<int> spiralOrder(vector<vector<int>>& matrix) {
