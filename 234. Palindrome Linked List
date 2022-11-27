@@ -1,0 +1,35 @@
+/*
+Runtime: 236 ms, faster than 95.13% of C++ online submissions for Palindrome Linked List.
+Memory Usage: 114.2 MB, less than 78.60% of C++ online submissions for Palindrome Linked List.
+*/
+class Solution {
+public:
+    ListNode* reverse(ListNode* root) {
+        ListNode* curr = root;
+        ListNode* prev = NULL;
+        ListNode* next;
+        while(curr != NULL) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    bool isPalindrome(ListNode* head) {
+        if(!head or !head->next) return true;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next != NULL and fast->next->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        ListNode* slowR = reverse(slow);
+        while(head) {
+            if(head->val != slowR->val) return false;
+            head = head->next;
+            slowR = slowR->next;
+        }
+        return true;
+    }
+};
