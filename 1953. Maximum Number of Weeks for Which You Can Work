@@ -1,0 +1,16 @@
+class Solution {
+public:
+    long long numberOfWeeks(vector<int>& milestones) {
+        long long n = milestones.size();
+        long long count = 0;
+        long long countAll = 0;
+        for(long long i=0;i<n;i++) {
+            if(milestones[i] > count) {
+                count = milestones[i];
+            }
+            countAll += milestones[i];
+        }
+        countAll -= count;
+        return min(countAll+count,countAll*2+1);
+    }
+};
