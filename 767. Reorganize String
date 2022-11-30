@@ -1,0 +1,33 @@
+/*
+Runtime: 0 ms, faster than 100.00% of C++ online submissions for Reorganize String.
+Memory Usage: 6.1 MB, less than 89.24% of C++ online submissions for Reorganize String.
+*/
+class Solution {
+public:
+    string reorganizeString(string s) {
+        unordered_map<char,int> mp;
+        char c = s[0];
+        for(int i=0;i<s.length();i++) {
+            mp[s[i]]++;
+            if(mp[s[i]] > mp[c]) {
+                c = s[i];
+            }
+        }
+        if(2 * mp[c] - 1 > s.length()) return "";
+        int index = 0;
+        while(mp[c]) {
+            s[index] = c;
+            index += 2;
+            mp[c]--;
+        }
+        for(auto &i:mp) {
+            while(i.second) {
+                if(index >= s.length()) index = 1;
+                s[index] = i.first;
+                i.second--;
+                index+=2;
+            }
+        }
+        return s;
+    }
+};
