@@ -1,0 +1,29 @@
+/*
+Runtime: 30 ms, faster than 89.72% of C++ online submissions for Convert Sorted List to Binary Search Tree.
+Memory Usage: 28.2 MB, less than 97.27% of C++ online submissions for Convert Sorted List to Binary Search Tree.
+*/
+class Solution {
+public:
+    ListNode* findMid(ListNode* head) {
+        ListNode* s = head;
+        ListNode* f = head;
+        ListNode* p;
+        while(f != NULL and f->next != NULL) {
+            p = s;
+            s = s->next;
+            f = f->next->next;
+        }
+        return p;
+    }
+    TreeNode* sortedListToBST(ListNode* head) {
+        if(head == NULL) return NULL;
+        if(head->next == NULL) return new TreeNode(head->val);
+        ListNode* left = findMid(head);
+        ListNode* mid = left->next;;
+        left->next = NULL;
+        TreeNode* root = new TreeNode(mid->val);
+        root->left = sortedListToBST(head);
+        root->right = sortedListToBST(mid->next);
+        return root;
+    }
+};
