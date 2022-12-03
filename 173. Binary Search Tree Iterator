@@ -1,0 +1,30 @@
+/*
+Runtime: 41 ms, faster than 77.29% of C++ online submissions for Binary Search Tree Iterator.
+Memory Usage: 24.2 MB, less than 53.96% of C++ online submissions for Binary Search Tree Iterator.
+*/
+class BSTIterator {
+public:
+    stack<TreeNode*> stk;
+    TreeNode* curr;
+    void pushNode(TreeNode* root) {
+        while(root != NULL) {
+            stk.push(root);
+            root = root->left;
+        }
+    }
+    BSTIterator(TreeNode* root) {
+        curr = root;
+        pushNode(root);
+    }
+    
+    int next() {
+        TreeNode* temp = stk.top();
+        stk.pop();
+        pushNode(temp->right);
+        return temp->val;
+    }
+    
+    bool hasNext() {
+        return !stk.empty();
+    }
+};
