@@ -1,3 +1,7 @@
+/*
+Runtime: 91 ms, faster than 93.24% of C++ online submissions for Detonate the Maximum Bombs.
+Memory Usage: 14.9 MB, less than 68.80% of C++ online submissions for Detonate the Maximum Bombs.
+*/
 class Solution {
 public:
     long long dis(int x1, int y1, int x2, int y2)
