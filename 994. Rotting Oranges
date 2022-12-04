@@ -1,0 +1,37 @@
+/*
+Runtime: 4 ms, faster than 95.09% of C++ online submissions for Rotting Oranges.
+Memory Usage: 12.8 MB, less than 98.51% of C++ online submissions for Rotting Oranges.
+*/
+class Solution {
+public:
+    void dfs(vector<vector<int>>& grid,int i,int j,int minutes) {
+        int m = grid.size();
+        int n = grid[0].size();
+        if(i<0 or i>=m or j<0 or j>=n or grid[i][j] == 0) return;
+        if(1 < grid[i][j] and grid[i][j] < minutes) return;
+        int t = grid[i][j];
+        grid[i][j] = minutes;
+        dfs(grid,i+1,j,minutes+1);
+        dfs(grid,i-1,j,minutes+1);
+        dfs(grid,i,j+1,minutes+1);
+        dfs(grid,i,j-1,minutes+1);
+    }
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 2)
+                    dfs(grid,i,j,2);
+            }
+        }
+        int mintues = 2;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1) return -1;
+                mintues = max(mintues,grid[i][j]);
+            }
+        }
+        return mintues-2;
+    }
+};
