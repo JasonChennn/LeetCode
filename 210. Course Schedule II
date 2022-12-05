@@ -1,0 +1,39 @@
+/*
+Runtime: 15 ms, faster than 99.35% of C++ online submissions for Course Schedule II.
+Memory Usage: 14.2 MB, less than 46.00% of C++ online submissions for Course Schedule II.
+*/
+class Solution {
+public:
+    bool hasCycleDFS(vector<vector<int>>& adj,vector<int>& visited,int node,stack<int>& topoSort) {
+        visited[node] = 1;
+        for(auto child:adj[node]) {
+            if(visited[child] == 0 and hasCycleDFS(adj,visited,child,topoSort)) {
+                return true;
+            } else if(visited[child] == 1) {
+                return true;
+            }
+        }
+        visited[node] = 2;
+        topoSort.push(node);
+        return false;
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> adj(numCourses);
+        vector<int> ans;
+        for(auto &arr:prerequisites) {
+            adj[arr[1]].push_back(arr[0]);
+        }
+        vector<int> visited(numCourses);
+        stack<int> topoSort;
+        for(int i=0;i<adj.size();i++) {
+            if(visited[i] == 0 and hasCycleDFS(adj,visited,i,topoSort)) {
+                return ans;
+            }
+        }
+        while(!topoSort.empty()) {
+            ans.push_back(topoSort.top());
+            topoSort.pop();
+        }
+        return ans;
+    }
+};
