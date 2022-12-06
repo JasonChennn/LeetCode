@@ -1,0 +1,22 @@
+/*
+Runtime 8 ms Beats 97.37% 
+Memory 16.4 MB Beats 27.26%
+*/
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        vector<int>house(10001,0);
+        vector<int>dp(10001,0);
+        int n = 0;
+        for(int i=0;i<nums.size();i++) {
+            house[nums[i]-1] += nums[i];    
+            n = max(n,nums[i]);
+        }
+        for(int i=0;i<=n;i++) {
+            if(i==0) dp[i] = 0;
+            else if(i==1) dp[i] = house[i-1];
+            else dp[i] = max(dp[i-1],house[i-1]+dp[i-2]);
+        }
+        return dp[n];
+    }
+};
