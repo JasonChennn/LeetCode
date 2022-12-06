@@ -1,0 +1,20 @@
+/*
+Runtime 13 ms Beats 95.17%
+Memory 22.3 MB Beats 78.80%
+*/
+class Solution {
+public:
+    int rec(TreeNode* root,int &rootMax,int &rootNotMax) {
+        if(!root) return 0;
+        int leftMaxCheck = 0, leftNotMaxCheck = 0, rightMaxCheck = 0, rightNotMaxCheck = 0;
+        int leftMax = rec(root->left,leftMaxCheck,leftNotMaxCheck);
+        int rightMax = rec(root->right,rightMaxCheck,rightNotMaxCheck);
+        rootMax = root->val+leftNotMaxCheck+rightNotMaxCheck;
+        rootNotMax = leftMax+rightMax;
+        return max(rootMax,rootNotMax);
+    }
+    int rob(TreeNode* root) {
+        int leftMaxCheck = 0, rightMaxCheck = 0;
+        return rec(root,leftMaxCheck,rightMaxCheck);
+    }
+};
