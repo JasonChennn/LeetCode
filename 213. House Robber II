@@ -1,4 +1,7 @@
-![image](https://i.imgur.com/pIsnTMU.png)
+/*
+Runtime 0 ms Beats 100%
+Memory 7.7 MB Beats 85.98%
+*/
 class Solution {
 public:
     int dp (vector<int>& nums,int l,int r) {
