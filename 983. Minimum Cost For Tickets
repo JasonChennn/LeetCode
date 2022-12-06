@@ -1,0 +1,26 @@
+/*
+Runtime 0 ms Beats 100%
+Memory 9.5 MB Beats 90.37%
+*/
+class Solution {
+public:
+    int mincostTickets(vector<int>& days, vector<int>& costs) {
+        int n = days[days.size()-1];
+        vector<int> dp(n+1);
+        vector<bool> rq(n+1,false);
+        for(auto day:days) {
+            rq[day] = true;
+        }
+        dp[0] = 0;
+        for(int i=1;i<=n;i++) {
+            if(rq[i] == false) {
+                dp[i] = dp[i-1];
+                continue;
+            }
+            dp[i] = dp[i-1] + costs[0];
+            dp[i] = min(dp[i],dp[max(0,i-7)]+costs[1]);
+            dp[i] = min(dp[i],dp[max(0,i-30)]+costs[2]);
+        }
+        return dp[n];
+    }
+};
