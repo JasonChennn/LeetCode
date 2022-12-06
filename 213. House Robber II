@@ -1,0 +1,18 @@
+![image](https://i.imgur.com/pIsnTMU.png)
+class Solution {
+public:
+    int dp (vector<int>& nums,int l,int r) {
+        int a=0,b=0,c;
+        for(int i=l;i<=r;i++) {
+            c = max(b,a+nums[i]);
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+    int rob(vector<int>& nums) {
+        if(nums.size() == 1) return nums[0];
+        if(nums.size() == 2) return max(nums[0],nums[1]);
+        return max(dp(nums,0,nums.size()-2),dp(nums,1,nums.size()-1));
+    }
+};
