@@ -1,0 +1,36 @@
+/*
+Runtime 388 ms Beats 55% 
+Memory 12.9 MB Beats 57.5%
+*/
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int n = nums.size();
+        int sum = 0;
+        for(auto x: nums) sum += x;
+        if(sum % 2) return false;
+        sum /= 2;
+        vector<vector<bool>>dp(n+1, vector<bool>(sum + 1, false));
+        for(int i = 0; i <= n; i++) {
+            for(int j = 0; j <= sum; j++) {
+                if(i == 0 and j == 0) dp[i][j] = true;
+                else if(i == 0) dp[i][j] = false;
+                else if(j == 0) dp[i][j] = true; 
+                else {
+                    if(j >= nums[i-1]) {
+                        dp[i][j] = dp[i - 1][j] or dp[i - 1][j - nums[i-1]];
+                    } else {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+                }
+            }
+        }
+        /*for(int i=0;i<dp.size();i++) {
+            for(int j=0;j<dp[0].size();j++) {
+                cout << dp[i][j] << ","; 
+            }
+            cout << endl;
+        }*/
+        return dp[nums.size()][sum];
+    }
+};
