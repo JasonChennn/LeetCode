@@ -1,0 +1,23 @@
+/*
+Runtime 15 ms Beats 83.87% 
+Memory 8.2 MB Beats 76.31%
+*/
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s == "") return 0;
+        unordered_map<char,int>dict;
+        int n = s.size();
+        int maxLen = 0;
+        for(int left=0,right=0;right<n;right++) {
+            dict[s[right]]--;
+            if(dict[s[right]] < -1) {
+                while(left <= right and dict[s[right]] < -1) {
+                    dict[s[left++]]++;
+                }
+            }
+            maxLen = max(maxLen,right-left+1);
+        }
+        return maxLen;
+    }
+};
