@@ -1,0 +1,13 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 10 MB Beats 78.26%
+*/
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        if(p == NULL and q == NULL) return true;
+        else if(p == NULL or q == NULL) return false;
+        else if(p->val != q->val) return false;
+        else return isSameTree(p->left,q->left) and isSameTree(p->right,q->right); 
+    }
+};
