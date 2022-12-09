@@ -1,0 +1,16 @@
+/*
+Runtime 3 ms Beats 95.13% 
+Memory 16.3 MB Beats 78.43%
+*/
+class Solution {
+public:
+    bool rec(TreeNode* p,TreeNode* q) {
+        if(p == NULL and q == NULL) return true;
+        else if(p == NULL or q == NULL) return false;
+        else if(p->val != q->val) return false;
+        else return rec(p->left,q->right) and rec(p->right,q->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return rec(root->left,root->right);
+    }
+};
