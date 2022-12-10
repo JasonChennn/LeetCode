@@ -1,0 +1,57 @@
+/*
+Runtime 71 ms Beats 87.91%
+Memory 45.1 MB Beats 53.27%
+*/
+
+class Node { 
+public:
+    Node* child[26];
+    bool isEnd;
+    /*Node() {
+        for(int i=0;i<26;i++) {
+            child[i] = NULL;
+        }
+        isEnd = false;
+    }*/
+};
+
+class Trie {
+public:
+    Node* root;
+    Trie() {
+        root = new Node();
+    }
+    
+    void insert(string word) {
+        Node* t = root;
+        for(char i:word) {
+            if(t->child[i-'a'] == NULL) {
+                t->child[i-'a'] = new Node();
+            }
+            t = t->child[i-'a'];
+        }
+        t->isEnd = true;
+    }
+    
+    bool search(string word) {
+        Node* t = root;
+        for(char i:word) {
+            if(t->child[i-'a'] == NULL) {
+                return false;
+            }
+            t = t->child[i-'a'];
+        }
+        return t->isEnd;
+    }
+    
+    bool startsWith(string prefix) {
+        Node* t = root;
+        for(char i:prefix) {
+            if(t->child[i-'a'] == NULL) {
+                return false;
+            }
+            t = t->child[i-'a'];
+        }
+        return true;
+    }
+};
