@@ -1,0 +1,25 @@
+/*
+Runtime 22 ms Beats 81.77% 
+Memory 17.1 MB Beats 75.19%
+*/
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newPair) {
+        vector<vector<int>> ans;
+        for(auto &pair:intervals) {
+            if(newPair[0] > pair[1]) {
+                ans.push_back(pair);
+            }
+            else if(pair[0] > newPair[1]) {
+                ans.push_back(newPair);
+                newPair = pair;
+            }
+            else if(pair[1] >= newPair[0] or pair[0] >= newPair[1]) {
+                newPair[0] = min(pair[0],newPair[0]);
+                newPair[1] = max(pair[1],newPair[1]);
+            }
+        }
+        ans.push_back(newPair);
+        return ans;
+    }
+};
