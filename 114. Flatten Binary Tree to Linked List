@@ -1,0 +1,21 @@
+/*
+Runtime 7 ms Beats 86.7%
+Memory 12.7 MB Beats 78.36%
+*/
+class Solution {
+public:
+    TreeNode* rec(TreeNode* root) {
+        if(!root) return NULL;
+        TreeNode* l = rec(root->left);
+        TreeNode* r = rec(root->right);
+        if(l) {
+            l->right = root->right;
+            root->right = root->left;
+            root->left = NULL;
+        }
+        return (r != NULL) ? r : (l != NULL) ? l : root;
+    }
+    void flatten(TreeNode* root) {
+        root = rec(root);
+    }
+};
