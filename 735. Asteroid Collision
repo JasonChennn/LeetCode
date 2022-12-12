@@ -1,0 +1,20 @@
+/*
+Runtime 16 ms Beats 87.83%
+Memory 17.4 MB Beats 94.48%
+*/
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        vector<int> s;
+        for(auto& num:asteroids) {
+            if(num > 0) {
+                s.push_back(num);
+            } else {
+                while(!s.empty() and s.back() > 0 and s.back() < abs(num)) s.pop_back();
+                if(s.empty() or s.back() < 0) s.push_back(num);
+                else if(s.back() == -num) s.pop_back();
+            }
+        }
+        return s;
+    }
+};
