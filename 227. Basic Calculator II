@@ -1,0 +1,31 @@
+/*
+Runtime 12 ms Beats 85.36% 
+Memory 13.2 MB Beats 8.84%
+*/
+class Solution {
+public:
+    int calculate(string s) {
+        s.push_back('+');
+        vector<int> nums;
+        char lastOp = '+';
+        int currNum = 0;
+        for(auto&c:s) {
+            if(isdigit(c)) {
+                currNum = currNum*10 + (c-'0');
+            } else if(c == ' ') continue;
+            else {
+                if(lastOp == '+') nums.push_back(currNum);
+                else if(lastOp == '-') nums.push_back(-currNum);
+                else if(lastOp == '*') nums.back() *= currNum;
+                else if(lastOp == '/') nums.back() /= currNum;
+                lastOp = c;
+                currNum = 0;
+            }
+        }
+        int sum = 0;
+        for(auto& num:nums) {
+            sum += num;
+        }
+        return sum;
+    }
+};
