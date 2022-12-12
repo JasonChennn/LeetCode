@@ -1,0 +1,35 @@
+/*
+Runtime 0 ms Beats 100%
+Memory 8.1 MB Beats 100%
+*/
+class Solution {
+public:
+    int getHeight(TreeNode* root) {
+        if(!root) return 0;
+        int l = getHeight(root->left);
+        int r = getHeight(root->right);
+        return max(l,r)+1;
+    }
+
+    int getWidth(TreeNode* root) {
+        if (!root) return 0;
+        int l = getWidth(root->left), r = getWidth(root->right);
+        return max(l, r)*2+1;
+    }
+
+    void rec(vector<vector<string>>& grid,TreeNode* root,int level,int l,int r) {
+        if(!root) return;
+        int mid = l+(r-l)/2;
+        grid[level][mid] = to_string(root->val);
+        rec(grid,root->left,level+1,l,mid-1);
+        rec(grid,root->right,level+1,mid+1,r);
+    }
+
+    vector<vector<string>> printTree(TreeNode* root) {
+        int row = getHeight(root);
+        int col = getWidth(root);
+        vector<vector<string>> grid(row,vector<string>(col,""));
+        rec(grid,root,0,0,col-1);
+        return grid;
+    }
+};
