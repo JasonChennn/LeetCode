@@ -1,0 +1,17 @@
+/*
+Runtime 113 ms Beats 79.47%
+Memory 52.8 MB Beats 17.53%
+*/
+class Solution {
+public:
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        if(nums.empty()) return NULL;
+        auto maxPivot = max_element(nums.begin(),nums.end());
+        TreeNode* root = new TreeNode(*maxPivot);
+        vector<int> leftNum(nums.begin(),maxPivot);
+        vector<int> rightNum(maxPivot+1,nums.end());
+        root->left = constructMaximumBinaryTree(leftNum);
+        root->right = constructMaximumBinaryTree(rightNum);
+        return root;
+    }
+};
