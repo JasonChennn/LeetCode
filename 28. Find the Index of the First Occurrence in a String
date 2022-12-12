@@ -1,0 +1,27 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 6.3 MB Beats 64.30%
+*/
+class Solution {
+public:
+    vector<int> createNext (string& needle) {
+        vector<int> Next(needle.size(),0);
+        int k = 0;
+        for(int i=1;i<needle.size();i++) {
+            while(k > 0 and needle[k] != needle[i]) k = Next[k-1];
+            if(needle[k] == needle[i]) Next[i] = ++k;
+        }
+        return Next;
+    }
+
+    int strStr(string haystack, string needle) {
+        vector<int> Next = createNext(needle);
+        int k = 0;
+        for(int i=0;i<haystack.size();i++) {
+            while(k > 0 and haystack[i] != needle[k]) k = Next[k-1];
+            if(haystack[i] == needle[k]) k++;
+            if(k == needle.size()) return i-needle.size()+1;
+        }
+        return -1;
+    }
+};
