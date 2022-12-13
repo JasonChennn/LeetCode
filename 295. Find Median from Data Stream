@@ -1,0 +1,30 @@
+/*
+Runtime 760 ms Beats 44.18% 
+Memory 116.9 MB Beats 90.31%
+*/
+class MedianFinder {
+public:
+    priority_queue<int> maxPQ;
+    priority_queue<int,vector<int>,greater<int>> minPQ;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        maxPQ.push(num);
+        minPQ.push(maxPQ.top());
+        maxPQ.pop();
+        if(maxPQ.size() < minPQ.size()) {
+            maxPQ.push(minPQ.top());
+            minPQ.pop();
+        }
+    }
+    
+    double findMedian() {
+        if((maxPQ.size()+minPQ.size()) % 2 == 0) {
+            return (double)(maxPQ.top() + minPQ.top()) / 2.0;
+        } else {
+            return maxPQ.top();
+        }
+    }
+};
