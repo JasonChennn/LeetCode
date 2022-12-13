@@ -18,7 +18,7 @@ public:
                 if(stk.empty()) {
                     maxArea = max(maxArea,heights[top]*i);
                 } else {
-                    maxArea = max(maxArea,heights[top]*(i-1-stk.top())); // in this, -1 means the previous's index.
+                    maxArea = max(maxArea,heights[top]*(i-1-stk.top())); // in this, i-1-stk.top() means the previous point's index.
                 }
                 i--;
             }
