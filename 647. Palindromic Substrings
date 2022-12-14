@@ -1,0 +1,23 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 6.3 MB Beats 64.75%
+*/
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int count = 0;
+        for(int i=0;i<s.size();i++)
+        {
+            //for odd length palindromes
+            int l=i,r=i;
+            while(l>=0 && r<s.size() && s[l--]==s[r++])
+                count++;
+            //for even length palindromes
+            l=i;
+            r=i+1;
+            while(l >= 0 && r<s.size() && s[l--]==s[r++])
+                count++;
+        }
+        return count;
+    }
+};
