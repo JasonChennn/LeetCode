@@ -1,0 +1,26 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 7.1 MB Beats 95.56%
+*/
+class Solution {
+public:
+    vector<string> ans;
+    void rec(string& s,vector<string>& wordDict,string temp,int i) {
+        if(i == s.length()) {
+            temp.pop_back();
+            ans.push_back(temp);
+            return;
+        }
+        string word = "";
+        for(int j=i;j<s.length();j++) {
+            word.push_back(s[j]);
+            if(find(wordDict.begin(),wordDict.end(),word) != wordDict.end()) {
+                rec(s,wordDict,temp+word+" ",j+1);
+            }
+        }
+    }
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        rec(s,wordDict,"",0);
+        return ans;
+    }
+};
