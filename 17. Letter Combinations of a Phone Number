@@ -1,0 +1,27 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 6.4 MB Beats 82.2%
+*/
+class Solution {
+public:
+    vector<string> ans;
+    vector<string> symbol = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void rec(string digits,int i,string temp) {
+        if(temp.size() == digits.size()) {
+            ans.push_back(temp);
+            return;
+        }
+        int len = symbol[digits[i]-'0'].size();
+        int num = (digits[i]-'0');
+        for(int j=0;j<len;j++) {
+            temp.push_back(symbol[num][j]);
+            rec(digits,i+1,temp);
+            temp.pop_back();
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+        if(digits == "") return {};
+        rec(digits,0,"");
+        return ans;
+    }
+};
