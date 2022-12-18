@@ -1,0 +1,24 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 13.8 MB Beats 43.87%
+*/
+class Solution {
+public:
+    vector<string> ans;
+    void rec(int n,string temp,int left,int right) {
+        if(left == right and right == n) {
+            ans.push_back(temp);
+            return;
+        }
+        if(left < n) {
+            rec(n,temp+'(',left+1,right);
+        }
+        if(left > right) {
+            rec(n,temp+')',left,right+1);
+        } 
+    }
+    vector<string> generateParenthesis(int n) {
+        rec(n,"",0,0);
+        return ans;
+    }
+};
