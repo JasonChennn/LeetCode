@@ -1,0 +1,27 @@
+/*
+Runtime 8 ms Beats 89.96% 
+Memory 13.5 MB Beats 98.53%
+*/
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n = nums.size();
+        int left = 0;
+        int right = n-1;
+        while(left <= right) {
+            int mid = (right-left)/2+left;
+            if(target == nums[mid]) {
+                int l = mid;
+                int r = mid;
+                while(l-1 >= 0 and nums[l-1] == nums[mid]) l--;
+                while(r+1 < n and nums[r+1] == nums[mid]) r++;
+                return {l,r};
+            } else if(nums[mid] > target) {
+                right = mid-1;
+            } else {
+                left = mid+1;
+            }
+        }
+        return {-1,-1};
+    }
+};
