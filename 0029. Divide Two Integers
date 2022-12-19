@@ -1,0 +1,28 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 5.9 MB Beats 35.42%
+*/
+class Solution {
+public:
+    int divide(long dividend, long divisor) {
+        if(divisor == 0) return 0;
+        if(divisor == 1) return dividend;
+        if(divisor == -1) {
+            if(dividend == INT_MIN) return INT_MAX;
+            else return -dividend;
+        }
+        long divd = (dividend < 0) ? -dividend:dividend;
+        long divs = (divisor < 0) ? -divisor:divisor;
+        long quot = 0;
+        long rem = 0;
+        for(int i=31; i>=0;--i){
+            rem <<= 1;
+            rem |= (divd >> i) & 1;
+            if(rem >= divs){
+                rem -= divs;
+                quot |= (1<<i);
+            }
+        }
+        return (dividend<0)^(divisor < 0) ? -quot : quot;
+    }
+};
