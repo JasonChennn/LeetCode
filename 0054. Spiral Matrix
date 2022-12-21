@@ -1,6 +1,6 @@
 /*
-Runtime: 0 ms, faster than 100.00% of C++ online submissions for Spiral Matrix.
-Memory Usage: 7 MB, less than 29.90% of C++ online submissions for Spiral Matrix.
+Runtime 0 ms Beats 100%
+Memory 6.9 MB Beats 73.38%
 */
 class Solution {
 public:
@@ -8,30 +8,32 @@ public:
         vector<int> ans;
         int m = matrix.size();
         int n = matrix[0].size();
-        int left = 0;
-        int right = n-1;
-        int top = 0;
-        int bottom = m-1;
+        int left = 0, top = 0;
+        int right = n-1, bottom = m-1;
         int dir = 0;
         while(ans.size() < m*n) {
             switch(dir) {
-                case 0: 
-                    for(int i=left;i<=right;i++) ans.push_back(matrix[top][i]);
+                case 0:
+                    for(int i=left;i<=right;i++)
+                        ans.push_back(matrix[top][i]);
                     top++;
                     dir = 1;
                     break;
                 case 1:
-                    for(int i=top;i<=bottom;i++) ans.push_back(matrix[i][right]);
+                    for(int i=top;i<=bottom;i++) 
+                        ans.push_back(matrix[i][right]);
                     right--;
                     dir = 2;
                     break;
                 case 2:
-                    for(int i=right;i>=left;i--) ans.push_back(matrix[bottom][i]);
+                    for(int i=right;i>=left;i--) 
+                        ans.push_back(matrix[bottom][i]);
                     bottom--;
                     dir = 3;
                     break;
                 case 3:
-                    for(int i=bottom;i>=top;i--) ans.push_back(matrix[i][left]);
+                    for(int i=bottom;i>=top;i--) 
+                        ans.push_back(matrix[i][left]);
                     left++;
                     dir = 0;
                     break;
