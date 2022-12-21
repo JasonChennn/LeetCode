@@ -1,0 +1,26 @@
+/*
+Runtime 38 ms Beats 94.75% 
+Memory 19 MB Beats 87.61%
+*/
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> ans;
+        sort(intervals.begin(),intervals.end());
+        vector<int> prev(2);
+        vector<int> curr(2);
+        prev = intervals[0];
+        for(int i=1;i<intervals.size();i++) {
+            vector<int> curr = intervals[i];
+            if(curr[0] > prev[1]) {
+                ans.push_back(prev);
+                prev = curr;
+            } else {
+                prev[0] = min(prev[0],curr[0]);
+                prev[1] = max(prev[1],curr[1]);
+            }
+        }
+        ans.push_back(prev);
+        return ans;
+    }
+};
