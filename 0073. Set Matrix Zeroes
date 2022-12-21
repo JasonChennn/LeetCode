@@ -1,0 +1,26 @@
+Runtime 16 ms Beats 87.22% 
+Memory 13.1 MB Beats 83.26%
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        vector<bool> dummyR(m,false);
+        vector<bool> dummyC(n,false);
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(matrix[i][j] == 0) {
+                    dummyR[i] = true;
+                    dummyC[j] = true;
+                }
+            }
+        }
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(dummyR[i] or dummyC[j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+};
