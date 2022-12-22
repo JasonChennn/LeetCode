@@ -1,0 +1,23 @@
+/*
+Runtime 3 ms Beats 75.31% 
+Memory 7.5 MB Beats 47.51%
+*/
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void rec (int i,vector<int> v,vector<int>& nums) {
+        if(i >= nums.size()) {
+            return;
+        }
+        v.push_back(nums[i]);
+        ans.push_back(v);
+        rec(i+1,v,nums);
+        v.pop_back();
+        rec(i+1,v,nums);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        ans.push_back({});
+        rec(0,{},nums);
+        return ans;
+    }
+};
