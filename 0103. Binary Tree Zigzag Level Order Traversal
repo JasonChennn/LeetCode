@@ -1,0 +1,32 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 12.2 MB Beats 45.70%
+*/
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        if(!root) return {};
+        vector<vector<int>> ans;
+        queue<TreeNode*> que;
+        que.push(root);
+        bool flag;
+        while(!que.empty()) {
+            int n = que.size();
+            vector<int> temp;
+            while(n--) {
+                TreeNode* t;
+                t = que.front();
+                que.pop();
+                temp.push_back(t->val);
+                if(t->right) que.push(t->right);
+                if(t->left) que.push(t->left);
+            }
+            if(!flag) {
+                reverse(temp.begin(),temp.end());
+            }
+            flag = 1-flag;
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
