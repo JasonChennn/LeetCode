@@ -1,0 +1,28 @@
+/*
+Runtime 172 ms Beats 82.24% 
+Memory 51.3 MB Beats 21.6%
+*/
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        if(nums.empty()) return 0;
+        set st(nums.begin(),nums.end());
+        int maxCount = 1;
+        int count = 1;
+        int prev = INT_MAX;
+        for(auto &i:st) {
+            if(prev == INT_MAX) {
+                prev = i;
+            } else {
+                if(i-prev == 1) {
+                    count++;
+                    maxCount = max(maxCount,count);
+                } else {
+                    count = 1;
+                }
+                prev = i;
+            }
+        }
+        return maxCount;
+    }
+};
