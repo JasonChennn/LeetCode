@@ -1,0 +1,35 @@
+/*
+Runtime 432 ms Beats 66.52% 
+Memory 8 MB Beats 47.2%
+*/
+class Solution {
+public:
+    bool rec(vector<vector<char>>& board,string word,int len,int i,int j) {
+        if(len == word.size()) {
+            return true;
+        }
+        if(i<0 or j<0 or i>= board.size() or j>=board[0].size() or board[i][j] != word[len] or board[i][j] == '#') return false;
+        char c = board[i][j];
+        board[i][j] = '#';
+        bool ans = rec(board,word,len+1,i+1,j)
+                or rec(board,word,len+1,i-1,j)
+                or rec(board,word,len+1,i,j+1)
+                or rec(board,word,len+1,i,j-1);
+        board[i][j] = c;
+        return ans;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(board[i][j] == word[0]) {
+                    if(rec(board,word,0,i,j)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
