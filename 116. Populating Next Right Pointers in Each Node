@@ -1,0 +1,23 @@
+/*
+Runtime 18 ms Beats 94.95% 
+Memory 17.1 MB Beats 38.59%
+*/
+class Solution {
+public:
+    Node* connect(Node* root) {
+        if(!root) return NULL;
+        queue<Node*> que;
+        que.push(root);
+        while(!que.empty()) {
+            int n = que.size();
+            while(n--) {
+                Node* t = que.front();
+                que.pop();
+                t->next = (n==0) ? NULL : que.front();
+                if(t->left) que.push(t->left);
+                if(t->right) que.push(t->right);
+            }
+        }
+        return root;
+    }
+};
