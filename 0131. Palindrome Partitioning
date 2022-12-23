@@ -1,0 +1,36 @@
+/*
+Runtime 251 ms Beats 53.24% 
+Memory 167.3 MB Beats 10.62%
+*/
+class Solution {
+public:
+    vector<vector<string>> ans;
+    bool isPalindrome(string s) {
+        int l = 0;
+        int r = s.size()-1;
+        while(l < r) {
+            if(s[l++] != s[r--]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    void rec(string s,int i,vector<string> temp) {
+        if(i == s.size()) {
+            ans.push_back(temp);
+            return;
+        }
+        for(int j=i;j<s.size();j++) {
+            string sub = s.substr(i,j-i+1);
+            if(isPalindrome(sub)) {
+                temp.push_back(sub);
+                rec(s,j+1,temp);
+                temp.pop_back();
+            }
+        }
+    }
+    vector<vector<string>> partition(string s) {
+        rec(s,0,{});
+        return ans;
+    }
+};
