@@ -1,0 +1,23 @@
+/*
+Runtime 11 ms Beats 78.84% 
+Memory 11 MB Beats 99.94%
+*/
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map<Node*,Node*> mp;
+        Node* curr = head;
+        while(curr != NULL) {
+            Node* t = new Node(curr->val);
+            mp[curr] = t;
+            curr = curr->next;
+        }
+        curr = head;
+        while(curr != NULL) {
+            mp[curr]->next = mp[curr->next];
+            mp[curr]->random = mp[curr->random];
+            curr = curr->next;
+        }
+        return mp[head];
+    }
+};
