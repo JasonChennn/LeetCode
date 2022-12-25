@@ -12,7 +12,6 @@ public:
         if(mp.find(key) != mp.end()) {
             int val = mp[key]->second;
             dq.erase(mp[key]);
-            mp.erase(key);
             dq.push_front({key,val});
             mp[key] = dq.begin();
             return val;
@@ -22,7 +21,6 @@ public:
     void put(int key, int value) {
         if(mp.find(key) != mp.end()) {
             dq.erase(mp[key]);
-            mp.erase(key);
         }
         if(dq.size() >= cap) {
             mp.erase(dq.back().first);
