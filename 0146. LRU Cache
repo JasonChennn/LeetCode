@@ -1,5 +1,5 @@
-Runtime 515 ms Beats 52.54% 
-Memory 183.1 MB Beats 5.33%
+Runtime 458 ms Beats 85.39% 
+Memory 174 MB Beats 41.65%
 class LRUCache {
 public:
     int cap;
