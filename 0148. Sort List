@@ -1,0 +1,45 @@
+/*
+Runtime 219 ms Beats 86.41% 
+Memory 73.9 MB Beats 39.29%
+*/
+class Solution {
+public:
+    ListNode* getMiddle(ListNode* head) {
+        if(head == NULL) return NULL;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = head;
+        while(fast != NULL and fast->next != NULL) {
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return prev;
+    }
+    ListNode* mergeSort(ListNode* left,ListNode* right) {
+        if(left == NULL or right == NULL) return (left != NULL) ? left : right;
+        ListNode* dummy = new ListNode(0);
+        ListNode* curr = dummy;
+        while(left != NULL and right != NULL) {
+            if(left->val < right->val) {
+                curr->next = left;
+                left = left->next;
+            } else {
+                curr->next = right;
+                right = right->next;
+            }
+            curr = curr->next;
+        }
+        curr->next = (left != NULL) ? left : right;
+        return dummy->next;
+    }
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL or head->next == NULL) return head;
+        ListNode* prev = getMiddle(head);
+        ListNode* mid = prev->next;
+        prev->next = NULL;
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(mid);
+        return mergeSort(left,right);
+    }
+};
