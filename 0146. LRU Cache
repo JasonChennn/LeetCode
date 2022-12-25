@@ -1,0 +1,34 @@
+Runtime 515 ms Beats 52.54% 
+Memory 183.1 MB Beats 5.33%
+class LRUCache {
+public:
+    int cap;
+    list<pair<int,int>> dq;
+    unordered_map<int,list<pair<int,int>>::iterator> mp;
+    LRUCache(int capacity) {
+        cap = capacity;
+    }
+    int get(int key) {
+        if(mp.find(key) != mp.end()) {
+            int val = mp[key]->second;
+            dq.erase(mp[key]);
+            mp.erase(key);
+            dq.push_front({key,val});
+            mp[key] = dq.begin();
+            return val;
+        }
+        return -1;
+    }
+    void put(int key, int value) {
+        if(mp.find(key) != mp.end()) {
+            dq.erase(mp[key]);
+            mp.erase(key);
+        }
+        if(dq.size() >= cap) {
+            mp.erase(dq.back().first);
+            dq.pop_back();
+        }
+        dq.push_front({key,value});
+        mp[key] = dq.begin();
+    }
+};
