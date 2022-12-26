@@ -1,0 +1,34 @@
+/*
+Runtime 10 ms Beats 79.92% 
+Memory 12 MB Beats 79.75%
+*/
+class Solution {
+public:
+    int compute(string t,int n1,int n2) {
+        if(t == "+") {
+            return n1+n2;
+        } else if(t == "-") {
+            return n1-n2;
+        } else if(t == "*") {
+            return n1*n2;
+        }
+        return n1/n2;
+    }
+    int evalRPN(vector<string>& tokens) {
+        stack<int> stk;
+        for(auto& t:tokens) {
+            if(t == "+" or t == "-" or t == "*" or t == "/") {
+                int n2 = stk.top();
+                stk.pop();
+                int n1 = stk.top();
+                stk.pop();
+                int res = compute(t,n1,n2);
+                stk.push(res);
+            } else {
+                int num = stoi(t);
+                stk.push(num);
+            }
+        }
+        return stk.top();
+    }
+};
