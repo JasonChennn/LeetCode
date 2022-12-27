@@ -1,0 +1,15 @@
+/*
+Runtime 122 ms Beats 86.52%
+Memory 47.3 MB Beats 46.1%
+*/
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int> pq(nums.begin(),nums.end());
+        while(k > 1) {
+            pq.pop();
+            k--;
+        }
+        return pq.top();
+    }
+};
