@@ -4,36 +4,32 @@ Memory Usage: 14.2 MB, less than 46.00% of C++ online submissions for Course Sch
 */
 class Solution {
 public:
-    bool hasCycleDFS(vector<vector<int>>& adj,vector<int>& visited,int node,stack<int>& topoSort) {
-        visited[node] = 1;
-        for(auto child:adj[node]) {
-            if(visited[child] == 0 and hasCycleDFS(adj,visited,child,topoSort)) {
+    vector<int> ans;
+    bool hasCycle(vector<vector<int>>& adj,vector<int>& visited,int i) {
+        visited[i] = 1;
+        for(auto j:adj[i]) {
+            if(visited[j] == 0 and hasCycle(adj,visited,j)) {
                 return true;
-            } else if(visited[child] == 1) {
+            } else if(visited[j] == 1) {
                 return true;
             }
         }
-        visited[node] = 2;
-        topoSort.push(node);
+        visited[i] = 2;
+        ans.push_back(i);
         return false;
     }
-    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
-        vector<vector<int>> adj(numCourses);
-        vector<int> ans;
-        for(auto &arr:prerequisites) {
-            adj[arr[1]].push_back(arr[0]);
+    vector<int> findOrder(int n, vector<vector<int>>& vec) {
+        vector<vector<int>> adj(n);
+        for(auto pair:vec) {
+            adj[pair[0]].push_back(pair[1]);
         }
-        vector<int> visited(numCourses);
-        stack<int> topoSort;
-        for(int i=0;i<adj.size();i++) {
-            if(visited[i] == 0 and hasCycleDFS(adj,visited,i,topoSort)) {
-                return ans;
+        vector<int> visited(n,0);
+        for(int i=0;i<n;i++) {
+            if(visited[i] == 0 and hasCycle(adj,visited,i)) {
+                return {};
             }
         }
-        while(!topoSort.empty()) {
-            ans.push_back(topoSort.top());
-            topoSort.pop();
-        }
+        //reverse(ans.begin(),ans.end());
         return ans;
     }
 };
