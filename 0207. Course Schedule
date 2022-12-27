@@ -1,0 +1,32 @@
+/*
+Runtime 19 ms Beats 96.36% 
+Memory 14.7 MB Beats 26.36%
+*/
+class Solution {
+public:
+    bool hasCycle(vector<vector<int>>& adj,vector<int>& visited,int i) {
+        visited[i] = 1;
+        for(auto j:adj[i]) {
+            if(visited[j] == 0 and hasCycle(adj,visited,j)) {
+                return true;
+            } else if(visited[j] == 1) {
+                return true;
+            }
+        }
+        visited[i] = 2;
+        return false;
+    }
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+        vector<vector<int>> adj(n);
+        for(auto pair:prerequisites) {
+            adj[pair[0]].push_back(pair[1]);
+        }
+        vector<int> visited(n,false);
+        for(int i=0;i<n;i++) {
+            if(visited[i] == 0 and hasCycle(adj,visited,i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
