@@ -1,0 +1,20 @@
+/*
+Runtime 20 ms Beats 91.97%
+Memory 17.7 MB Beats 66.17%
+*
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        if(nums.size() == 1) return;
+        int n = nums.size();
+        sort(nums.begin(),nums.end());
+        vector<int> temp = nums;
+        int left = 1;
+        int right = n-1;
+        while(right >= 0) {
+            nums[left] = temp[right--];
+            left += 2;
+            if(left >= n) left = 0;
+        }
+    }
+};
