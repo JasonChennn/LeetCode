@@ -1,0 +1,17 @@
+/*
+Runtime 105 ms Beats 99.96% 
+Memory 61.4 MB Beats 100%
+*/
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int left = INT_MAX;
+        int right = INT_MAX;
+        for(int num:nums) {
+            if(num > right) return true;
+            else if(left < num and num < right) right = num;
+            else if(num < left) left = num;
+        }
+        return false;
+    }
+};
