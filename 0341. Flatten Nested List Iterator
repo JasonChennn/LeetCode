@@ -1,0 +1,34 @@
+/*
+Runtime 17 ms Beats 81.93%
+Memory 14.3 MB Beats 41.98%
+*/
+
+class NestedIterator {
+public:
+    int index = 0;
+    vector<int> vec;
+    void rec(vector<NestedInteger> &nestedList) {
+        for(auto i:nestedList) {
+            if(i.isInteger()) {
+                vec.push_back(i.getInteger());
+            } else {
+                rec(i.getList());
+            }
+        }
+    }
+    NestedIterator(vector<NestedInteger> &nestedList) {
+        rec(nestedList);
+    }
+    int next() {
+        if(hasNext()) {
+            return vec[index++];
+        }
+        return INT_MAX;
+    }
+    bool hasNext() {
+        if(index < vec.size()) {
+            return true;
+        }
+        return false;
+    }
+};
