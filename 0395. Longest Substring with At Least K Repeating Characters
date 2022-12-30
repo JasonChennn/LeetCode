@@ -1,0 +1,22 @@
+/*
+Runtime 867 ms Beats 20.58% 
+Memory 59.9 MB Beats 7.73%
+*/
+class Solution {
+public:
+    int longestSubstring(string s, int k) {
+        int n = s.size();
+        unordered_map<char,int> mp;
+        for(char c:s) {
+            mp[c]++;
+        }
+        int i = 0;
+        while(i < n and mp[s[i]] >= k) {
+            i++;
+        }
+        if(i == s.size()) return s.size();
+        int left = longestSubstring(s.substr(0,i),k);
+        int right = longestSubstring(s.substr(i+1),k);
+        return max(left,right);
+    }
+};
