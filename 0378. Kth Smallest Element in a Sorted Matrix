@@ -1,0 +1,20 @@
+/*
+Runtime 46 ms Beats 73.6% 
+Memory 14.2 MB Beats 52.94%
+*/
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        priority_queue<int> pq;
+        int n = matrix.size();
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                pq.push(matrix[i][j]);
+                if(i*n+j >= k) {
+                    pq.pop();
+                }
+            }
+        }
+        return pq.top();
+    }
+};
