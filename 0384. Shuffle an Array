@@ -1,0 +1,25 @@
+/*
+Runtime 65 ms Beats 94.9% 
+Memory 57 MB Beats 37.4%
+*/
+class Solution {
+public:
+    vector<int> orig;
+    vector<int> vec;
+    Solution(vector<int>& nums) {
+        orig = nums;
+        vec = orig;
+    }
+    
+    vector<int> reset() {
+        return orig;
+    }
+    
+    vector<int> shuffle() {
+        int n = vec.size();
+        int l = rand() % n;
+        int r = rand() % n;
+        swap(vec[l],vec[r]);
+        return vec;
+    }
+};
