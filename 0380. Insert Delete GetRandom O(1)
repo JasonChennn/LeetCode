@@ -1,0 +1,35 @@
+/*
+Runtime 289 ms Beats 79% 
+Memory 96.4 MB Beats 97.81%
+*/
+class RandomizedSet {
+public:
+    vector<int> vec;
+    RandomizedSet() {
+        
+    }
+    
+    bool insert(int val) {
+        auto it = find(vec.begin(),vec.end(),val);
+        if(it == vec.end()) {
+            vec.push_back(val);
+            return true;
+        }
+        return false;
+    }
+    
+    bool remove(int val) {
+        auto it = find(vec.begin(),vec.end(),val);
+        if(it != vec.end()) {
+            vec.erase(it);
+            return true;
+        }
+        return false;
+    }
+    
+    int getRandom() {
+        int n = vec.size();
+        int i = rand() % n;
+        return vec[i];
+    }
+};
