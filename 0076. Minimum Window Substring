@@ -5,28 +5,36 @@ Memory 7.8 MB Beats 47.66%
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if(s.size() < t.size()) return "";
-        if(s == t) return s;
-        unordered_map<char,int>dict;
-        for(char &i:t) {
-            dict[i]++;
-        }
-        int n = s.size();
+        if(s==t) return s;
+        if(t.size()>s.size()) return "";
+        unordered_map<char,int> mp;
+        int m = s.size();
+        int n = t.size();
+        int cnt = 0;
         int minLen = INT_MAX;
-        int sPos = 0;
-        int count = t.size();
-        for(int left=0,right=0;right<n;right++) {
-            if(dict[s[right]]-- > 0) count--;
-            while(count == 0) {
-                if(right-left+1 < minLen) {
-                    minLen = right-left+1;
-                    sPos = left;
+        int start = 0;
+        for(char c : t) {
+            mp[c]++;
+            cnt++;
+        }
+        for(int left=0,right=0;right<m;right++) {
+            if(mp[s[right]] > 0) {
+                cnt--;
+            }
+            mp[s[right]]--;
+            while(cnt == 0) {
+                int currLen = right-left+1;
+                if(minLen > currLen) {
+                    minLen = currLen;
+                    start = left;
                 }
-                if(dict[s[left++]]++ == 0) {
-                    count++;
+                mp[s[left]]++;
+                if(mp[s[left]] > 0) {
+                    cnt++;
                 }
+                left++;
             }
         }
-        return (minLen == INT_MAX) ? "":s.substr(sPos,minLen);
+        return (minLen == INT_MAX) ? "" : s.substr(start,minLen);
     }
 };
