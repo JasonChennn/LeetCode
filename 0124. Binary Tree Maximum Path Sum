@@ -1,0 +1,20 @@
+/*
+Runtime 29 ms Beats 80.28%
+Memory 27.5 MB Beats 92.72%
+*/
+class Solution {
+public:
+    int maxVal;
+    int rec(TreeNode* root) {
+        if(!root) return 0;
+        int sumL = max(0,rec(root->left));
+        int sumR = max(0,rec(root->right));
+        maxVal = max(maxVal,root->val+sumL+sumR);
+        return root->val + max(sumL,sumR);
+    }
+    int maxPathSum(TreeNode* root) {
+        maxVal = root->val;
+        rec(root);
+        return maxVal;
+    }
+};
