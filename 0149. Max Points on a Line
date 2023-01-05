@@ -1,0 +1,29 @@
+/*
+Runtime 36 ms Beats 88.31% 
+Memory 11.4 MB Beats 75.68%
+*/
+class Solution {
+public:
+    int maxPoints(vector<vector<int>>& points) {
+        unordered_map<double,int> mp;
+        int n = points.size();
+        if(n <= 2) return n;
+        double slope;
+        int sum = 0;
+        for(int i=0;i<n;i++) {
+            mp.clear();
+            for(int j=i+1;j<n;j++) {
+                if(points[j][0] == points[i][0]) {
+                    slope = DBL_MAX;
+                } else {
+                    double x_slope = points[j][0]-points[i][0];
+                    double y_slope = points[j][1]-points[i][1];
+                    slope = y_slope/x_slope;
+                }
+                mp[slope]++;
+                sum = max(sum,mp[slope]);
+            }
+        }
+        return sum+1;
+    }
+};
