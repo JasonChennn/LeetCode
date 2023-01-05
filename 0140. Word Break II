@@ -5,22 +5,23 @@ Memory 7.1 MB Beats 95.56%
 class Solution {
 public:
     vector<string> ans;
-    void rec(string& s,vector<string>& wordDict,string temp,int i) {
-        if(i == s.length()) {
-            temp.pop_back();
-            ans.push_back(temp);
+    void rec(string s,unordered_set<string>& dict,string sentence,int i) {
+        if(i == s.size()) {
+            sentence.pop_back();
+            ans.push_back(sentence);
             return;
         }
         string word = "";
-        for(int j=i;j<s.length();j++) {
+        for(int j=i;j<s.size();j++) {
             word.push_back(s[j]);
-            if(find(wordDict.begin(),wordDict.end(),word) != wordDict.end()) {
-                rec(s,wordDict,temp+word+" ",j+1);
+            if(dict.count(word)) {
+                rec(s,dict,sentence+word+" ",j+1);
             }
         }
     }
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        rec(s,wordDict,"",0);
+        unordered_set<string> dict(wordDict.begin(),wordDict.end());
+        rec(s,dict,"",0);
         return ans;
     }
 };
