@@ -1,0 +1,21 @@
+/*
+Runtime 726 ms Beats 30.20% 
+Memory 100.8 MB Beats 68.32%
+*/
+class Solution {
+public:
+    int minimumLines(vector<vector<int>>& nums) {
+        if(nums.size() == 1) return 0;
+        sort(nums.begin(),nums.end());
+        int count = 1;
+        int n = nums.size();
+        for(int i=2;i<n;i++) {
+            long prod_1 =  (long) (nums[i-1][1]-nums[i-2][1])
+                            * (long) (nums[i][0]-nums[i-1][0]);
+            long prod_2 = (long) (nums[i][1]-nums[i-1][1])
+                            * (long) (nums[i-1][0]-nums[i-2][0]);
+            count += (prod_1!=prod_2) ? 1 : 0;
+        }
+        return count;
+    }
+};
