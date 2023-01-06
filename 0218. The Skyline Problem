@@ -1,0 +1,30 @@
+/*
+Runtime 50 ms Beats 63.93% 
+Memory 15.1 MB Beats 67.4%
+*/
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<vector<int>> ans;
+        vector<pair<int,int>> pos;
+        int prevHeight = 0;
+        multiset<int> pq = {0};
+        for(auto i:buildings) {
+            pos.push_back({i[0],-i[2]});
+            pos.push_back({i[1],i[2]});
+        }
+        sort(pos.begin(),pos.end());
+        for(auto p:pos) {
+            if(p.second < 0) {
+                pq.insert(-p.second);
+            } else {
+                pq.erase(pq.find(p.second));
+            }
+            if(*pq.rbegin() != prevHeight) {
+                ans.push_back({p.first,*pq.rbegin()});
+                prevHeight = *pq.rbegin();
+            }
+        }
+        return ans;
+    }
+};
