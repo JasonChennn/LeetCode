@@ -1,0 +1,30 @@
+/*
+Runtime 55 ms Beats 79.14% 
+Memory 39.3 MB Beats 28.72%
+*/
+class Codec {
+public:
+    TreeNode* createTree(stringstream& ss) {
+        string t;
+        ss >> t;
+        if(t == "NIL") return NULL;
+        TreeNode* root = new TreeNode(stoi(t));
+        root->left = createTree(ss);
+        root->right = createTree(ss);
+        return root;
+    }
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        return (root == NULL) ? " NIL" : " "
+        +to_string(root->val)
+        +serialize(root->left)
+        +serialize(root->right);
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        stringstream ss(data);
+        return createTree(ss);
+    }
+};
