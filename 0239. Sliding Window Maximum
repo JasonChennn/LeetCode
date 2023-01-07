@@ -1,0 +1,26 @@
+/*
+Runtime 729 ms Beats 31.31% 
+Memory 217.9 MB Beats 5.60%
+*/
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> ans;
+        queue<int> que;
+        multiset<int> pq;
+        int n = nums.size();
+        for(int i=0;i<k-1;i++) {
+            pq.insert(nums[i]);
+            que.push(nums[i]);
+        }
+        for(int i=k-1;i<n;i++) {
+            pq.insert(nums[i]);
+            que.push(nums[i]);
+            ans.push_back(*pq.rbegin());
+            int front = que.front();
+            que.pop();
+            pq.erase(pq.find(front));
+        }
+        return ans;
+    }
+};
