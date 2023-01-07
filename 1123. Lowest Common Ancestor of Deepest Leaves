@@ -25,3 +25,31 @@ public:
         return t;
     }
 };
+/*
+Method 2:
+  Runtime 15 ms Beats 84.59% 
+  Memory 21.1 MB Beats 66.31%
+*/
+class Solution {
+public:
+    int getHeight (TreeNode* root) {
+        if(!root) return 0;
+        return 1+max(getHeight(root->left),getHeight(root->right));
+    }
+    TreeNode* dfs (TreeNode* root,int currHeight,int maxHeight) {
+        if(root == NULL or currHeight == maxHeight) return root;
+        TreeNode* l = dfs(root->left,currHeight+1,maxHeight);
+        TreeNode* r = dfs(root->right,currHeight+1,maxHeight);
+        if(l != NULL and r != NULL) {
+            return root;
+        } else if(l != NULL) {
+            return l;
+        } else if(r != NULL) {
+            return r;
+        }
+        return NULL;
+    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        return dfs(root,1,getHeight(root));
+    }
+};
