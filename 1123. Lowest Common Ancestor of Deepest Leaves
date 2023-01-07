@@ -1,5 +1,5 @@
 /*
-Method 1:
+Method 1 BFS:
   Runtime 15 ms Beats 84.59% 
   Memory 23.9 MB Beats 9.97%
 */
@@ -26,7 +26,7 @@ public:
     }
 };
 /*
-Method 2:
+Method 2 DFS:
   Runtime 15 ms Beats 84.59% 
   Memory 21.1 MB Beats 66.31%
 */
