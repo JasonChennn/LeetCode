@@ -1,0 +1,27 @@
+/*
+Method 1:
+  Runtime 15 ms Beats 84.59% 
+  Memory 23.9 MB Beats 9.97%
+*/
+class Solution {
+public:
+    unordered_map<TreeNode*,int> mp;
+    int getHeight(TreeNode* root) {
+        if(!root) return 0;
+        mp[root] = 1+max(getHeight(root->left),getHeight(root->right));
+        return mp[root];
+    }
+    TreeNode* lcaDeepestLeaves(TreeNode* root) {
+        mp[root] = 0;
+        getHeight(root);
+        int l = mp[root->left];
+        int r = mp[root->right];
+        TreeNode* t = root;
+        while(l != r) {
+            t = (l > r) ? t->left : t->right;
+            l = (t->left) ? mp[t->left] : 0;
+            r = (t->right) ? mp[t->right] : 0;
+        }
+        return t;
+    }
+};
