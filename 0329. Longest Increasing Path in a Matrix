@@ -1,0 +1,33 @@
+/*
+Runtime 50 ms Beats 87.23% 
+Memory 14.8 MB Beats 99.31%
+*/
+class Solution {
+public:
+    int dp[201][201];
+    int dfs(vector<vector<int>>& matrix,int i,int j,int prevNum) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        if(i<0 or j<0 or i>=m or j>=n or prevNum >= matrix[i][j]) 
+            return 0;
+        if(dp[i][j]) 
+            return dp[i][j];
+        int u = dfs(matrix,i-1,j,matrix[i][j]);
+        int d = dfs(matrix,i+1,j,matrix[i][j]);
+        int l = dfs(matrix,i,j-1,matrix[i][j]);
+        int r = dfs(matrix,i,j+1,matrix[i][j]);
+        dp[i][j] = max({u,d,r,l})+1;
+        return dp[i][j];
+    }
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        int maxCount = 0;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                maxCount = max(maxCount,dfs(matrix,i,j,-1));
+            }
+        }
+        return maxCount;
+    }
+};
