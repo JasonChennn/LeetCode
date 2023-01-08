@@ -1,0 +1,47 @@
+/*
+Runtime 723 ms Beats 66.98% 
+Memory 249 MB Beats 33.96%
+*/
+class Solution {
+public:
+    void inplaceMerge(vector<pair<int,int>>& vec,vector<int>& count,int l,int m,int r) {
+        if(l >= r) return;
+        vector<pair<int,int>> sorted(r-l+1);
+        int i = l;
+        int j = m+1;
+        int k = 0;
+        while(i <= m and j <= r) {
+            if(vec[i].first <= vec[j].first) {
+                sorted[k++] = vec[j++];
+            } else {
+                count[vec[i].second] += (r-j+1);
+                sorted[k++] = vec[i++];
+            }
+        }
+        while(i <= m) {
+            sorted[k++] = vec[i++];
+        }
+        while(j <= r) {
+            sorted[k++] = vec[j++];
+        }
+        for(int s=l;s<=r;s++) {
+            vec[s] = sorted[s-l];
+        }
+    }
+    void mergeSort(vector<pair<int,int>>& vec,vector<int>& count,int l,int r) {
+        if(l >= r) return;
+        int m = (r-l)/2+l;
+        mergeSort(vec,count,l,m);
+        mergeSort(vec,count,m+1,r);
+        inplaceMerge(vec,count,l,m,r);
+    }
+    vector<int> countSmaller(vector<int>& nums) {
+        vector<pair<int,int>> vec;
+        vector<int> count(nums.size(),0);
+        for(int i=0;i<nums.size();i++) {
+            vec.push_back({nums[i],i});
+        }
+        mergeSort(vec,count,0,nums.size()-1);
+        return count;
+    }
+};
