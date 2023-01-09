@@ -1,0 +1,38 @@
+/*
+Runtime 204 ms Beats 94.13% 
+Memory 69.1 MB Beats 32.39%
+*/
+class Solution {
+public:
+    void dfs(vector<vector<bool>>& isPrerequisites,vector<vector<int>>& adj,vector<int>& visited,int source,int i) {
+        visited[i] = 1;
+        isPrerequisites[source][i] = true;
+        for(int j:adj[i]) {
+            if(visited[j] == 0) {
+                dfs(isPrerequisites,adj,visited,source,j);
+            }
+        }
+        visited[i] = 2;
+    }
+    vector<bool> checkIfPrerequisite(int n, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+        vector<vector<bool>> isPrerequisites(n,vector<bool>(n,false));
+        vector<vector<int>> adj(n);
+        vector<bool> ans;
+        for(auto pair:prerequisites) {
+            adj[pair[0]].push_back(pair[1]);
+            isPrerequisites[pair[0]][pair[1]] = true;
+        }
+        for(int i=0;i<n;i++) {
+            vector<int> visited(n);
+            dfs(isPrerequisites,adj,visited,i,i);
+        }
+        for(auto pair:queries) {
+            if(isPrerequisites[pair[0]][pair[1]] == true) {
+                ans.push_back(true);
+            } else {
+                ans.push_back(false);
+            }
+        }
+        return ans;
+    }
+};
