@@ -1,0 +1,35 @@
+/*
+Runtime 345 ms Beats 65.21% 
+Memory 156.3 MB Beats 12.24%
+*/
+class Solution {
+public:
+    vector<int> closestPrimes(int left, int right) {
+        vector<int> isPrime(right+1,true);
+        isPrime[0] = isPrime[1] = false;
+        for(int i=2;i*i<=right;i++) {
+            if(isPrime[i]) {
+                for(int j=i*i;j<=right;j+=i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        vector<int> ans = {-1,-1};
+        int diff = INT_MAX;
+        bool flag = false;
+        int prev;
+        for(int i=left;i<=right;i++) {
+            if(isPrime[i]) {
+                if(flag) {
+                    if(diff > i-prev) {
+                        diff = i-prev;
+                        ans = {prev,i};
+                    }
+                }
+                prev = i;
+                flag = true;
+            }
+        }
+        return ans;
+    }
+};
