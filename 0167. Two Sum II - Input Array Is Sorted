@@ -1,0 +1,19 @@
+/*
+Runtime 16 ms Beats 70.60% 
+Memory 15.5 MB Beats 94.17%
+*/
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        unordered_map<int,int> mp;
+        int n = numbers.size();
+        for(int i=0;i<n;i++) {
+            auto it = mp.find(target-numbers[i]);
+            if(it != mp.end()) {
+                return {it->second,i+1};
+            }
+            mp[numbers[i]] = i+1;
+        }
+        return {};
+    }
+};
