@@ -1,0 +1,19 @@
+/*
+Runtime 253 ms Beats 99.44% 
+Memory 74.8 MB Beats 87.73%
+*/
+class Solution {
+public:
+    long long maxKelements(vector<int>& nums, int k) {
+        priority_queue<long long> pq(nums.begin(),nums.end());
+        long long sum = 0;
+        while(k--) {
+            long long top = pq.top();
+            pq.pop();
+            sum += top;
+            top = ceil(top/3.0);
+            pq.push(top);
+        }
+        return sum;
+    }
+};
