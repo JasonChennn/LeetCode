@@ -1,0 +1,37 @@
+/*
+Runtime 39 ms Beats 94.36% 
+Memory 31.8 MB Beats 53.8%
+*/
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& nums, int k, int x) {
+        int lo = 0;
+        int hi = nums.size()-1;
+        while(lo < hi) {
+            int mid = (hi-lo)/2+lo;
+            if(nums[mid] >= x) {
+                hi = mid;
+            } else {
+                lo = mid+1;
+            }
+        }
+        hi = lo;
+        lo = lo-1;
+        vector<int> ans;
+        while(ans.size() < k and lo >= 0 and hi < nums.size()) {
+            if(abs(nums[lo]-x) <= abs(nums[hi]-x)) {
+                ans.push_back(nums[lo--]);
+            } else {
+                ans.push_back(nums[hi++]);
+            }
+        }
+        while(ans.size() < k and lo >= 0) {
+            ans.push_back(nums[lo--]);
+        }
+        while(ans.size() < k and hi < nums.size()) {
+            ans.push_back(nums[hi++]);
+        }
+        sort(ans.begin(),ans.end());
+        return ans;
+    }
+};
