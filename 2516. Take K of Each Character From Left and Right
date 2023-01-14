@@ -1,0 +1,26 @@
+/*
+Runtime 37 ms Beats 71.4% 
+Memory 10.6 MB Beats 35.89%
+*/
+class Solution {
+public:
+    int takeCharacters(string s, int k) {
+        int n = s.size();
+        int l = 0;
+        int r = n-1;
+        int minLen = n;
+        vector<int> dict(3,0);
+        for(char c:s) {
+            dict[c-'a']++;
+        }
+        if(dict[0]<k or dict[1]<k or dict[2]<k) return -1;
+        for(int i=n-1,j=n-1;i>=0;i--) {
+            dict[s[i]-'a']--;
+            while(j >= 0 and dict[s[i]-'a'] < k) {
+                dict[s[j--]-'a']++;
+            }
+            minLen = min(minLen,i+(n-j-1));
+        }
+        return minLen;
+    }
+};
