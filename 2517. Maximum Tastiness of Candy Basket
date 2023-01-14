@@ -1,0 +1,28 @@
+/*
+Runtime 239 ms Beats 66.60% 
+Memory 48.6 MB Beats 41.58%
+*/
+class Solution {
+public:
+    int maximumTastiness(vector<int>& price, int k) {
+        sort(price.begin(), price.end());
+        int lo = 0, hi = 1e9;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (check(mid, price, k)) lo = mid+1;
+            else hi = mid;
+        }
+        return lo-1;
+    }
+    bool check(int x, vector<int>& price, int k) {
+        int last = price[0];
+        int count = 1;
+        for(int i=1; i<price.size() and count<k; i++) {
+            if(price[i]-last >= x) {
+                last = price[i];
+                count++;
+            }
+        }
+        return count == k;
+    }
+};
