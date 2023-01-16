@@ -1,0 +1,43 @@
+/*
+Runtime 290 ms Beats 80.56% 
+Memory 60.9 MB Beats 52.47%
+*/
+class cmp {
+public:
+    bool operator() (pair<int,int> a, pair<int,int> b) {
+        if(a.first == b.first) {
+            return a.second > b.second;
+        } else {
+            return a.first < b.first;
+        }
+    }
+};
+class Solution {
+public:
+    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
+        unordered_set<string> pos_f(positive_feedback.begin(),positive_feedback.end());
+        unordered_set<string> neg_f(negative_feedback.begin(),negative_feedback.end());
+        priority_queue<pair<int,int>,vector<pair<int,int>>,cmp> pq;
+        int id = 0;
+        for(string words:report) {
+            stringstream ss(words);
+            int score = 0;
+            string t;
+            while(ss>>t) {
+                if(pos_f.count(t)) {
+                    score += 3;
+                }
+                if(neg_f.count(t)) {
+                    score -= 1;
+                }
+            }
+            pq.push({score,student_id[id++]});
+        }
+        vector<int> ans;
+        while(!pq.empty() and k--) {
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+        return ans;
+    }
+};
