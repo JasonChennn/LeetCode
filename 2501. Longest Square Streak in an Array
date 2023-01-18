@@ -1,0 +1,23 @@
+/*
+Runtime 265 ms Beats 93.7% 
+Memory 105.1 MB Beats 62.56%
+*/
+class Solution {
+public:
+    int longestSquareStreak(vector<int>& nums) {
+        int ans = -1;
+        unordered_set<long> st;
+        for(auto num:nums) {
+            st.insert(num);
+        }
+        for(long num:nums) {
+            int count = 1;
+            while(st.count(num*num)) {
+                count++;
+                num = num*num;
+                ans = max(ans,count);
+            }
+        }
+        return ans;
+    }
+};
