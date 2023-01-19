@@ -1,0 +1,29 @@
+/*
+Runtime 527 ms Beats 85.45% 
+Memory 140.2 MB Beats 32.99%
+*/
+class Solution {
+public:
+    int minVal = INT_MAX;
+    void dfs (vector<vector<pair<int,int>>>& adj,vector<int>& visited,int val,int i) {
+        visited[i] = 1;
+        for(auto j:adj[i]) {
+            int child_val = j.first;
+            int child = j.second;
+            minVal = min(minVal,child_val);
+            if(visited[child] == 0) {
+                dfs(adj,visited,val+child_val,child);
+            }
+        }
+    }
+    int minScore(int n, vector<vector<int>>& roads) {
+        vector<vector<pair<int,int>>> adj(n);
+        for(auto p:roads) {
+            adj[p[0]-1].push_back({p[2],p[1]-1});
+            adj[p[1]-1].push_back({p[2],p[0]-1});
+        }
+        vector<int> visited(n,0);
+        dfs(adj,visited,0,0);
+        return minVal;
+    }
+};
