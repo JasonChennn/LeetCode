@@ -1,0 +1,19 @@
+/*
+Runtime 27 ms Beats 91.84% 
+Memory 13.2 MB Beats 40.33%
+*/
+class Solution {
+public:
+    bool makeStringsEqual(string s, string target) {
+        int v1 = 0, v2 = 0;
+        int n = s.size();
+        for(int i=0;i<n;i++) {
+            v1 += s[i]-'0';
+        }
+        for(int i=0;i<n;i++) {
+            v2 += target[i]-'0';
+        }
+        if((v1 > 0 and v2 == 0) or (v2 > 0 and v1 == 0)) return false;
+        return true;
+    }
+};
