@@ -1,0 +1,26 @@
+/*
+Runtime 29 ms Beats 98.22% 
+Memory 28.3 MB Beats 58.19%
+*/
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int n = nums.size();
+        int sum = 0;
+        int minLen = n;
+        bool flag = false;
+        for(int l=0,r=0;r<n;r++) {
+            if(sum < target) {
+                sum += nums[r];
+                if(sum >= target) {
+                    flag = true;
+                }
+                while(l <= r and sum >= target) {
+                    minLen = min(minLen,r-l+1);
+                    sum -= nums[l++];
+                }
+            }
+        }
+        return !flag ? 0 : minLen;
+    }
+};
