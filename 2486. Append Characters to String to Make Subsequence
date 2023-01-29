@@ -1,0 +1,19 @@
+/*
+Runtime 14 ms Beats 96.77% 
+Memory 10.7 MB Beats 48.27%
+*/
+class Solution {
+public:
+    int appendCharacters(string s, string t) {
+        int m = s.size();
+        int n = t.size();
+        int count = 0;
+        for(int i=0,j=0;i<m;i++) {
+            if(s[i] == t[j]) {
+                count++;
+                j++;
+            }
+        }
+        return n-count;
+    }
+};
