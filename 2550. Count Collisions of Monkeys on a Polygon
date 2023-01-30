@@ -1,0 +1,22 @@
+/*
+Runtime 0 ms Beats 100%
+Memory 5.9 MB Beats 75%
+*/
+class Solution {
+public:
+    long long int mod = 1e9+7;
+    long long int myPow(long long int num,long long int pow) {
+        long long int res = 1;
+        while(pow) {
+            if((pow & 1) == 1) {
+                res = (res * num) % mod;
+            }
+            pow >>= 1;
+            num = (num * num) % mod;
+        }
+        return res;
+    }
+    int monkeyMove(int n) {
+        return ((myPow(2,n)-2)+mod) % mod;
+    }
+};
