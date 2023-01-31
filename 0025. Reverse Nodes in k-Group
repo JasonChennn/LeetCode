@@ -1,0 +1,41 @@
+/*
+Runtime 15 ms Beats 86.12%
+Memory 11.5 MB Beats 75.34%
+*/
+class Solution {
+public:
+    ListNode* reverse(ListNode* head) {
+        if(head == NULL or head->next == NULL) {
+            return head;
+        }
+        ListNode* Next = reverse(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return Next;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* dummyCurr = dummy;
+        ListNode* prev = head;
+        ListNode* curr = head;
+        int cnt = 0;
+        while(curr != NULL) {
+            cnt++;
+            if(cnt >= k) {
+                dummyCurr->next = NULL;
+                ListNode* t = curr->next;
+                curr->next = NULL;
+                dummyCurr->next = reverse(prev);
+                dummyCurr = prev;
+                prev->next = t;
+                curr = t;
+                prev = curr;
+                cnt = 0;
+            } else {
+                curr = curr->next;
+            }
+        }
+        return dummy->next;
+    }
+};
