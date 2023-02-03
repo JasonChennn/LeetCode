@@ -1,0 +1,28 @@
+/*
+Runtime 226 ms Beats 74.5% 
+Memory 103.1 MB Beats 28.1%
+*/
+class Solution {
+public:
+    vector<int> dailyTemperatures(vector<int>& nums) {
+        int n = nums.size();
+        stack<int> stk;
+        vector<int> ans(n);
+        for(int i=0;i<n;i++) {
+            if(stk.empty()) {
+                stk.push(i);
+            } else {
+                while(!stk.empty() and nums[i] > nums[stk.top()]) {
+                    ans[stk.top()] = i-stk.top();
+                    stk.pop();
+                }
+                stk.push(i);
+            }
+        }
+        while(!stk.empty()) {
+            ans[stk.top()] = 0;
+            stk.pop();
+        }
+        return ans;
+    }
+};
