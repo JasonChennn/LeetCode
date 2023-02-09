@@ -9,9 +9,8 @@ public:
         int val = preorder[index];
         int pivot;
         index++;
-        for(int i=l;i<=r;i++) {
+        for(pivot=l;pivot<=r;pivot++) {
             if(inorder[i] == val) {
-                pivot = i;
                 break;
             }
         }
