@@ -1,6 +1,6 @@
 /*
-Runtime 0 ms Beats 100% 
-Memory 6.3 MB Beats 64.75%
+Runtime 7 ms Beats 69.5% 
+Memory 13.2 MB Beats 37.73%
 */
 class Solution {
 public:
