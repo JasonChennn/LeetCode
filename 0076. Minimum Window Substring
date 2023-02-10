@@ -5,36 +5,33 @@ Memory 7.8 MB Beats 47.66%
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if(s==t) return s;
-        if(t.size()>s.size()) return "";
-        unordered_map<char,int> mp;
+        if(t.size() > s.size()) return "";
         int m = s.size();
         int n = t.size();
-        int cnt = 0;
+        unordered_map<int,int> mp;
+        int count = 0;
         int minLen = INT_MAX;
-        int start = 0;
-        for(char c : t) {
-            mp[c]++;
-            cnt++;
+        int Pos = 0;
+        for(int i=0;i<n;i++) {
+            mp[t[i]]++;
+            count++;
         }
-        for(int left=0,right=0;right<m;right++) {
-            if(mp[s[right]] > 0) {
-                cnt--;
+        for(int l=0,r=0;r<m;r++) {
+            mp[s[r]]--;
+            if(mp[s[r]] >= 0) {
+                count--;
             }
-            mp[s[right]]--;
-            while(cnt == 0) {
-                int currLen = right-left+1;
-                if(minLen > currLen) {
-                    minLen = currLen;
-                    start = left;
+            while(count == 0) {
+                if(++mp[s[l]] >= 1) {
+                    count++;
                 }
-                mp[s[left]]++;
-                if(mp[s[left]] > 0) {
-                    cnt++;
+                if(r-l+1 < minLen) {
+                    minLen = r-l+1;
+                    Pos = l;
                 }
-                left++;
+                l++;
             }
         }
-        return (minLen == INT_MAX) ? "" : s.substr(start,minLen);
+        return minLen == INT_MAX ? "" : s.substr(Pos,minLen);
     }
 };
