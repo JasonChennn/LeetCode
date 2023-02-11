@@ -1,0 +1,22 @@
+/*
+Runtime 0 ms Beats 100% 
+Memory 6 MB Beats 62.33%
+*/
+class Solution {
+public:
+    int mySqrt(int x) {
+        if(x == 0) return 0;
+        if(x == 1) return 1;
+        long int l = 0;
+        long int r = x;
+        while(l < r) {
+            long int mid = (r-l)/2+l;
+            if(mid*mid <= (long int)x) {
+                l = mid+1;
+            } else {
+                r = mid;
+            }
+        }
+        return l-1;
+    }
+};
