@@ -5,14 +5,17 @@ Memory 113.7 MB Beats 78.86%
 class Solution {
 public:
     vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
+        int sum = 0;
         int m = rolls.size();
-        int sum = (m+n)*mean;
-        for(auto&i:rolls) sum -= i;
-        if(sum < n or sum > n*6) return {};
-        int rem = sum % n;
-        vector<int> ans(n,sum/n);
+        for(int i=0;i<m;i++) {
+            sum += rolls[i];
+        }
+        int target = mean*(m+n) - sum;
+        if(target < n or target > n*6) return {};
+        int rem = target % n;
+        vector<int> ans(n,target/n);
         for(int i=0;i<rem;i++) {
-            ans[i] += 1;
+            ans[i]++;
         }
         return ans;
     }
