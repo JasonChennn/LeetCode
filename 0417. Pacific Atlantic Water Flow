@@ -1,0 +1,38 @@
+/*
+Runtime 40 ms Beats 90.70% 
+Memory 17.4 MB Beats 93.38%
+*/
+class Solution {
+public:
+    void dfs(vector<vector<int>>&matrix,vector<vector<bool>>&ocean,int m,int n,int i,int j,int prevVal) {
+        if(i<0 or j<0 or i>=m or j>=n or matrix[i][j] < prevVal or ocean[i][j]) return;
+        ocean[i][j] = true;
+        dfs(matrix,ocean,m,n,i+1,j,matrix[i][j]);
+        dfs(matrix,ocean,m,n,i-1,j,matrix[i][j]);
+        dfs(matrix,ocean,m,n,i,j+1,matrix[i][j]);
+        dfs(matrix,ocean,m,n,i,j-1,matrix[i][j]);
+    }
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        int m = heights.size();
+        int n = heights[0].size();
+        vector<vector<bool>> Pacific(m,vector<bool>(n,false));
+        vector<vector<bool>> Atlantic(m,vector<bool>(n,false));
+        vector<vector<int>> ans;
+        for(int i=0;i<m;i++) {
+            dfs(heights,Pacific,m,n,i,0,0);
+            dfs(heights,Atlantic,m,n,m-i-1,n-1,0);
+        }
+        for(int j=0;j<n;j++) {
+            dfs(heights,Pacific,m,n,0,j,0);
+            dfs(heights,Atlantic,m,n,m-1,n-j-1,0);
+        }
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(Pacific[i][j] and Atlantic[i][j]) {
+                    ans.push_back({i,j});
+                }
+            }
+        }
+        return ans;
+    }
+};
