@@ -1,0 +1,23 @@
+/*
+Runtime 115 ms Beats 80.75%
+Memory 61.3 MB Beats 68.36%
+*/
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        for(int i=0;i<nums.size();) {
+            int tar = nums[i]-1;
+            if(nums[tar] != nums[i]) {
+                swap(nums[tar],nums[i]);
+            } else {
+                i++;
+            }
+        }
+        for(int i=0;i<nums.size();i++) {
+            if(nums[i] != i+1) {
+                return nums[i];
+            }
+        }
+        return 0;
+    }
+};
