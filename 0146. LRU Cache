@@ -3,21 +3,23 @@ Memory 174 MB Beats 41.65%
 class LRUCache {
 public:
     int cap;
-    list<pair<int,int>> dq;
+    list<pair<int,int>> dq; // 記錄順序
     unordered_map<int,list<pair<int,int>>::iterator> mp;
     LRUCache(int capacity) {
         cap = capacity;
     }
+    
     int get(int key) {
-        if(mp.find(key) != mp.end()) {
-            int val = mp[key]->second;
-            dq.erase(mp[key]);
-            dq.push_front({key,val});
-            mp[key] = dq.begin();
-            return val;
+        if(!mp.count(key)) {
+            return -1;
         }
-        return -1;
+        int val = mp[key]->second;
+        dq.erase(mp[key]);
+        dq.push_front({key,val});
+        mp[key] = dq.begin();
+        return val;
     }
+    
     void put(int key, int value) {
         if(mp.find(key) != mp.end()) {
             dq.erase(mp[key]);
