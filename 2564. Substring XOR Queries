@@ -1,0 +1,32 @@
+/*
+Runtime 511 ms Beats 50% 
+Memory 127.4 MB Beats 40.62%
+*/
+class Solution {
+public:
+    vector<vector<int>> substringXorQueries(string s, vector<vector<int>>& queries) {
+        unordered_map<int,vector<int>> mp;
+        for(int i=0;i<s.size();i++) {
+            int x = 0;
+            for(int j=0;j<32 and i+j<s.size();j++) {
+                x = (x<<1) + (s[i+j] == '1');
+                if(!mp.count(x)) {
+                    mp[x] = {i,i+j};
+                }
+                if(s[i] == '0') {
+                    break;
+                }
+            }
+        }
+        vector<vector<int>> ans;
+        for(auto pair:queries) {
+            int tar = pair[0]^pair[1];
+            if(mp.count(tar)) {
+                ans.push_back({mp[tar]});
+            } else {
+                ans.push_back({-1,-1});
+            }
+        }
+        return ans;
+    }
+};
