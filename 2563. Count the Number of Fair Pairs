@@ -1,0 +1,43 @@
+/*
+Runtime 263 ms Beats 70.70%
+Memory 56.5 MB Beats 7.19%
+*/
+class Solution {
+public:
+    long long count = 0;
+    int getLowbnd(vector<int>& nums,int i,int lower) {
+        int lo = i+1;
+        int hi = nums.size();
+        while(lo < hi) {
+            int mid = (hi-lo)/2+lo;
+            if(nums[mid] < lower-nums[i]) {
+                lo = mid+1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo;
+    }
+    int getUppbnd(vector<int>& nums,int i,int upper) {
+        int lo = i+1;
+        int hi = nums.size();
+        while(lo < hi) {
+            int mid = (hi-lo)/2+lo;
+            if(nums[mid] <= upper-nums[i]) {
+                lo = mid+1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo;
+    }
+    long long countFairPairs(vector<int>& nums, int lower, int upper) {
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++) {
+            int low = getLowbnd(nums,i,lower);
+            int high = getUppbnd(nums,i,upper);
+            count += high-low;
+        }
+        return count;
+    }
+};
