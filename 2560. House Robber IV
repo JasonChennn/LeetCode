@@ -1,0 +1,44 @@
+/*
+Runtime 249 ms Beats 26.33% 
+Memory 58 MB Beats 31.77%
+*/
+class Solution {
+    // dp[i][0]: 代表第i號房子不偷所累積的房子次數
+    // dp[i][1]: 代表偷第i號房子所累積的房子次數
+    int dp[100005][2];
+public:
+    // k 代表至少會偷的房子數量，判定搶劫能力的標準
+    // cap 代表在所有會偷的房屋內至多會偷到的金額
+    bool check(vector<int>& nums, int k,int cap) { // 猜cap
+        int n = nums.size();
+        dp[0][0] = 0;
+        if(nums[0] <= cap) { // 代表房屋[0]所偷的金額還不足cap元,代表此間可以偷
+            dp[0][1] = 1;
+        } else { // 代表房屋[0]所偷的金額超過cap能力,不可偷
+            dp[0][1] = INT_MIN/2;
+        }
+        for(int i=1;i<n;i++) {
+            if(nums[i] > cap) { // 超過搶劫能力,不可偷
+                dp[i][0] = max(dp[i-1][0],dp[i-1][1]);
+                dp[i][1] = INT_MIN/2;
+            } else { //滿足搶劫能力,可偷
+                dp[i][0] = max(dp[i-1][0],dp[i-1][1]);
+                dp[i][1] = dp[i-1][0]+1;
+            }
+        }
+        return (max(dp[n-1][0],dp[n-1][1])) >= k;
+    }
+    int minCapability(vector<int>& nums, int k) {
+        int lo = 0;
+        int hi = INT_MAX/2;
+        while(lo < hi) {
+            int mid = (hi-lo)/2+lo;
+            if(check(nums,k,mid)) {
+                hi = mid;
+            } else {
+                lo = mid+1;
+            }
+        }
+        return lo;
+    }
+};
