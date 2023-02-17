@@ -1,0 +1,32 @@
+/*
+Runtime 178 ms Beats 26.62% 
+Memory 68.6 MB Beats 26.54%
+*/
+class Solution {
+public:
+    vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
+        int m = words.size();
+        int n = queries.size();
+        vector<int> vec(m+1);
+        vector<int> ans;
+        vec[0] = 0;
+        for(int i=1;i<=m;i++) {
+            int c1 = words[i-1][0];
+            int c2 = words[i-1][words[i-1].size()-1];
+            int count = 0;
+            if(c1=='a' or c1=='e' or c1=='i' or c1=='o' or c1=='u') {
+                count++;
+            }
+            if(c2=='a' or c2=='e' or c2=='i' or c2=='o' or c2=='u') {
+                count++;
+            }
+            vec[i] = vec[i-1];
+            vec[i] += (count == 2) ? 1:0;
+        }
+        for(auto pair:queries) {
+            int count = vec[pair[1]+1]-vec[pair[0]];
+            ans.push_back(count);
+        }
+        return ans;
+    }
+};
