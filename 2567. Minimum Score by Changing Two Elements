@@ -1,0 +1,15 @@
+/*
+Runtime 85 ms Beats 92.75% 
+Memory 34.1 MB Beats 60.26%
+*/
+class Solution {
+public:
+    int minimizeSum(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int n = nums.size();
+        int abs1 = abs(nums[n-1]-nums[2]);
+        int abs2 = abs(nums[n-2]-nums[1]);
+        int abs3 = abs(nums[n-3]-nums[0]);
+        return min(abs1,min(abs2,abs3));
+    }
+};
