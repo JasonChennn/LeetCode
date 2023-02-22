@@ -1,0 +1,17 @@
+/*
+Runtime 158 ms Beats 74.73% 
+Memory 47.6 MB Beats 77.46%
+*/
+class Solution {
+public:
+    int minImpossibleOR(vector<int>& nums) {
+        unsigned n = 1;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++) {
+            if(nums[i] == n) {
+                n <<= 1;
+            }
+        }
+        return n;
+    }
+};
