@@ -1,0 +1,18 @@
+/*
+Runtime 15 ms Beats 92.88% 
+Memory 19.5 MB Beats 77.99%
+*/
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int n = nums[0];
+        int count = 0;
+        for(auto num:nums) {
+            if(count == 0) {
+                n = num;
+            }
+            count += (num == n) ? 1 : -1;
+        }
+        return n;
+    }
+};
