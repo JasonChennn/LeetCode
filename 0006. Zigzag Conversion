@@ -1,0 +1,37 @@
+/*
+Runtime 38 ms Beats 23.99% 
+Memory 16.7 MB Beats 17.75%
+*/
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows == 1) return s;
+        int n = s.size();
+        vector<vector<char>> vec(numRows);
+        int i = 0;
+        bool flag = false;
+        string ans;
+        for(auto c:s) {
+            vec[i].push_back(c);
+            if(!flag) {
+                i++;
+                if(i >= numRows) {
+                    flag = 1-flag;
+                    i-=2;
+                }
+            } else {
+                i--;
+                if(i < 0) {
+                    flag = 1-flag;
+                    i+=2;
+                }
+            }
+        }
+        for(auto i:vec) {
+            for(auto j:i) {
+                ans.push_back(j);
+            }
+        }
+        return ans;
+    }
+};
