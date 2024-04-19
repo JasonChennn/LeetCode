@@ -1,0 +1,27 @@
+/*
+Runtime 3 ms Beats 70.48% of users with C++
+Memory 12.10 MB Beats 45.68% of users with C++
+*/
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int low = 0;
+        int high = nums.size();
+        int mid;
+        if(target > nums[high-1]) {
+            return high;
+        }
+        while(low<=high) {
+            mid = (low+high)/2;
+            if(nums[mid] == target) {
+                return mid;
+            }
+            if(nums[mid] < target) {
+                low = mid+1;
+            } else {
+                high = mid-1;
+            }
+        }
+        return low;
+    }
+};
